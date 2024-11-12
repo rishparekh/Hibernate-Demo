@@ -179,4 +179,49 @@ def generate_dashboard_layout(users):
             "User_ID": user_id,
             "Section_Order": ["Portfolio Overview", "Performance Metrics", "Market Data", "Recommendations"][random.randint(0, 3)],
             "Most_Used_Sections": ["Portfolio Overview", "Performance Metrics"],
-            "User_Customization": {"
+            "User_Customization": {"theme": random.choice(["dark", "light"]), "font_size": random.choice(["small", "medium", "large"])},
+            "Preferred_View_Mode": random.choice(["table", "chart", "grid"])
+        })
+    return pd.DataFrame(dashboard_layouts)
+
+# Generate fake data for all tables
+users_df = generate_users(10)
+portfolios_df = generate_portfolios(users_df, 15)
+assets_df = generate_assets(20)
+transactions_df = generate_transactions(portfolios_df, assets_df, 30)
+performance_metrics_df = generate_performance_metrics(assets_df, portfolios_df, 25)
+market_data_df = generate_market_data(assets_df, 30)
+user_behavior_preferences_df = generate_user_behavior_preferences(users_df)
+investment_recommendations_df = generate_investment_recommendations(users_df, portfolios_df, assets_df, 15)
+dashboard_layout_df = generate_dashboard_layout(users_df)
+
+# Display DataFrames
+print("Users Table:")
+print(users_df.head())
+print("\nPortfolios Table:")
+print(portfolios_df.head())
+print("\nAssets Table:")
+print(assets_df.head())
+print("\nTransactions Table:")
+print(transactions_df.head())
+print("\nPerformance Metrics Table:")
+print(performance_metrics_df.head())
+print("\nMarket Data Table:")
+print(market_data_df.head())
+print("\nUser Behavior and Preferences Table:")
+print(user_behavior_preferences_df.head())
+print("\nInvestment Recommendations Table:")
+print(investment_recommendations_df.head())
+print("\nDashboard Layout Table:")
+print(dashboard_layout_df.head())
+
+# Save data to JSON files if needed
+users_df.to_json("users.json", orient="records")
+portfolios_df.to_json("portfolios.json", orient="records")
+assets_df.to_json("assets.json", orient="records")
+transactions_df.to_json("transactions.json", orient="records")
+performance_metrics_df.to_json("performance_metrics.json", orient="records")
+market_data_df.to_json("market_data.json", orient="records")
+user_behavior_preferences_df.to_json("user_behavior_preferences.json", orient="records")
+investment_recommendations_df.to_json("investment_recommendations.json", orient="records")
+dashboard_layout_df.to_json("dashboard_layout.json", orient="records")
